@@ -4,33 +4,33 @@ import java.util.Scanner;
 
 public class RomanToInteger {
     public static void main(String[] args) {
-        Map<Character, Integer> d = new HashMap<>();
-        d.put('M', 1000);
-        d.put('D', 500);
-        d.put('C', 100);
-        d.put('L', 50);
-        d.put('X', 10);
-        d.put('V', 5);
-        d.put('I', 1);
+        Map<Character, Integer> romanInteger = new HashMap<>();
+        romanInteger.put('M', 1000);
+        romanInteger.put('D', 500);
+        romanInteger.put('C', 100);
+        romanInteger.put('L', 50);
+        romanInteger.put('X', 10);
+        romanInteger.put('V', 5);
+        romanInteger.put('I', 1);
 
         Scanner scanner = new Scanner(System.in);
-        String inputRoman = scanner.nextLine().toUpperCase();
+        String inputRoman = "IX" ;                    //scanner.nextLine().toUpperCase(); 
 
-        int result = romanToInteger(inputRoman, d);
+        int result = romanToInteger(inputRoman, romanInteger);
         System.out.println(result);
     }
 
-    public static int romanToInteger(String s, Map<Character, Integer> d) {
-        int c = 0, t = 0, p = 0;
+    public static int romanToInteger(String s, Map<Character, Integer> romanInteger) {
+        int current = 0, total = 0, prev = 0;
         for (int i = 0; i < s.length(); i++) {
-            c = d.get(s.charAt(i));
-            if (c > p) {
-                t += c - 2 * p;
+            current = romanInteger.get(s.charAt(i));
+            if (current > prev) {
+                total += current - 2 * prev;
             } else {
-                t += c;
+                total += current;
             }
-            p = c;
+            prev = current;
         }
-        return t;
+        return total;
     }
 }
